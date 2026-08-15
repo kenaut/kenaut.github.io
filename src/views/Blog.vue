@@ -1,19 +1,8 @@
 <script setup>
 import { posts } from '../data/posts'
-
-const profile = {
-  avatar: '/avatar.jpg',
-  name: 'kenaut',
-  nickname: '星野砚秋',
-  altName: 'keyoweb / 星野けん',
-  info: [
-    { label: '生日', value: '10月29日' },
-    { label: '性别', value: 'MTF' },
-    { label: 'MBTI', value: 'ENFP' },
-    { label: '身份', value: '个人开发者' },
-  ],
-  orgs: ['不刘名工作室室长', '豆芽人联盟五常成员', '豆芽人联盟定中区区长'],
-}
+import { profile } from '../data/profile'
+import { t } from '../i18n'
+import LanguageSwitcher from '../components/LanguageSwitcher.vue'
 
 // 按日期从新到旧排序
 const sortedPosts = [...posts].sort((a, b) => b.date.localeCompare(a.date))
@@ -22,7 +11,7 @@ const sortedPosts = [...posts].sort((a, b) => b.date.localeCompare(a.date))
 <template>
   <div class="layout">
     <aside class="sidebar">
-      <img class="avatar" :src="profile.avatar" alt="头像" />
+      <img class="avatar" :src="profile.avatar" :alt="t('sidebar.avatarAlt')" />
 
       <div class="profile-head">
         <h3 class="nickname">{{ profile.nickname }}</h3>
@@ -39,7 +28,7 @@ const sortedPosts = [...posts].sort((a, b) => b.date.localeCompare(a.date))
       </table>
 
       <div class="profile-block">
-        <h3>组织</h3>
+        <h3>{{ t('sidebar.orgsTitle') }}</h3>
         <ul class="plain-list">
           <li v-for="org in profile.orgs" :key="org">{{ org }}</li>
         </ul>
@@ -51,17 +40,18 @@ const sortedPosts = [...posts].sort((a, b) => b.date.localeCompare(a.date))
         <div class="nav-top">
           <router-link class="nav-brand" to="/">kenaut</router-link>
           <nav class="nav-links">
-            <router-link to="/">主页</router-link>
-            <router-link to="/projects">项目</router-link>
-            <router-link to="/blog">博客</router-link>
+            <router-link to="/">{{ t('nav.home') }}</router-link>
+            <router-link to="/projects">{{ t('nav.projects') }}</router-link>
+            <router-link to="/blog">{{ t('nav.blog') }}</router-link>
+            <LanguageSwitcher />
           </nav>
         </div>
       </header>
 
       <main id="top">
         <section class="section">
-          <h2>博客</h2>
-          <p class="section-sub">Notes and thoughts.</p>
+          <h2>{{ t('blog.title') }}</h2>
+          <p class="section-sub">{{ t('blog.sub') }}</p>
           <ul class="post-list">
             <li v-for="p in sortedPosts" :key="p.slug" class="post-item">
               <router-link :to="`/blog/${p.slug}`" class="post-link">

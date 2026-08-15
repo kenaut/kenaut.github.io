@@ -3,23 +3,12 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import MarkdownIt from 'markdown-it'
 import { posts } from '../data/posts'
+import { profile } from '../data/profile'
+import { t } from '../i18n'
+import LanguageSwitcher from '../components/LanguageSwitcher.vue'
 
 const route = useRoute()
 const md = new MarkdownIt()
-
-const profile = {
-  avatar: '/avatar.jpg',
-  name: 'kenaut',
-  nickname: '星野砚秋',
-  altName: 'keyoweb / 星野けん',
-  info: [
-    { label: '生日', value: '10月29日' },
-    { label: '性别', value: 'MTF' },
-    { label: 'MBTI', value: 'ENFP' },
-    { label: '身份', value: '个人开发者' },
-  ],
-  orgs: ['不刘名工作室室长', '豆芽人联盟五常成员', '豆芽人联盟定中区区长'],
-}
 
 // 同步加载所有 md 文章内容
 const modules = import.meta.glob('../posts/*.md', {
@@ -44,7 +33,7 @@ const content = computed(() => {
 <template>
   <div class="layout">
     <aside class="sidebar">
-      <img class="avatar" :src="profile.avatar" alt="头像" />
+      <img class="avatar" :src="profile.avatar" :alt="t('sidebar.avatarAlt')" />
 
       <div class="profile-head">
         <h3 class="nickname">{{ profile.nickname }}</h3>
@@ -61,7 +50,7 @@ const content = computed(() => {
       </table>
 
       <div class="profile-block">
-        <h3>组织</h3>
+        <h3>{{ t('sidebar.orgsTitle') }}</h3>
         <ul class="plain-list">
           <li v-for="org in profile.orgs" :key="org">{{ org }}</li>
         </ul>
@@ -73,9 +62,10 @@ const content = computed(() => {
         <div class="nav-top">
           <router-link class="nav-brand" to="/">kenaut</router-link>
           <nav class="nav-links">
-            <router-link to="/">主页</router-link>
-            <router-link to="/projects">项目</router-link>
-            <router-link to="/blog">博客</router-link>
+            <router-link to="/">{{ t('nav.home') }}</router-link>
+            <router-link to="/projects">{{ t('nav.projects') }}</router-link>
+            <router-link to="/blog">{{ t('nav.blog') }}</router-link>
+            <LanguageSwitcher />
           </nav>
         </div>
       </header>
@@ -88,7 +78,7 @@ const content = computed(() => {
           </header>
           <div class="post-content" v-html="content"></div>
         </article>
-        <p v-else class="not-found">文章不存在</p>
+        <p v-else class="not-found">{{ t('post.notFound') }}</p>
       </main>
 
       <footer class="footer">
