@@ -1,5 +1,5 @@
 <script setup>
-import { projects } from '../data/projects'
+import { posts } from '../data/posts'
 
 const profile = {
   avatar: '/avatar.jpg',
@@ -14,6 +14,9 @@ const profile = {
   ],
   orgs: ['不刘名工作室室长', '豆芽人联盟五常成员', '豆芽人联盟定中区区长'],
 }
+
+// 按日期从新到旧排序
+const sortedPosts = [...posts].sort((a, b) => b.date.localeCompare(a.date))
 </script>
 
 <template>
@@ -57,16 +60,15 @@ const profile = {
 
       <main id="top">
         <section class="section">
-          <h2>项目</h2>
-          <p class="section-sub">All projects, work in progress.</p>
-          <ul class="project-grid">
-            <li v-for="p in projects" :key="p.name" class="project-card">
-              <a :href="p.url" target="_blank" rel="noopener">
-                <span class="project-path">{{ p.path }}</span>
-                <span class="project-name">{{ p.name }}</span>
-                <span class="project-desc">{{ p.desc }}</span>
-                <span class="project-lang">{{ p.lang }}</span>
-              </a>
+          <h2>博客</h2>
+          <p class="section-sub">Notes and thoughts.</p>
+          <ul class="post-list">
+            <li v-for="p in sortedPosts" :key="p.slug" class="post-item">
+              <router-link :to="`/blog/${p.slug}`" class="post-link">
+                <span class="post-date">{{ p.date }}</span>
+                <span class="post-title">{{ p.title }}</span>
+              </router-link>
+              <p class="post-summary">{{ p.summary }}</p>
             </li>
           </ul>
         </section>

@@ -66,6 +66,7 @@ const activity = [
           <nav class="nav-links">
             <router-link to="/">主页</router-link>
             <router-link to="/projects">项目</router-link>
+            <router-link to="/blog">博客</router-link>
           </nav>
         </div>
         <section class="hero">

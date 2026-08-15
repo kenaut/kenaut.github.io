@@ -1,5 +1,11 @@
 <script setup>
-import { projects } from '../data/projects'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+import MarkdownIt from 'markdown-it'
+import { posts } from '../data/posts'
+
+const route = useRoute()
+const md = new MarkdownIt()
 
 const profile = {
   avatar: '/avatar.jpg',
@@ -14,6 +20,25 @@ const profile = {
   ],
   orgs: ['不刘名工作室室长', '豆芽人联盟五常成员', '豆芽人联盟定中区区长'],
 }
+
+// 同步加载所有 md 文章内容
+const modules = import.meta.glob('../posts/*.md', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+})
+
+const post = computed(() => {
+  const slug = route.params.slug
+  const meta = posts.find((p) => p.slug === slug)
+  const raw = modules[`../posts/${slug}.md`]
+  return { meta, raw }
+})
+
+const content = computed(() => {
+  if (!post.value.raw) return ''
+  return md.render(post.value.raw)
+})
 </script>
 
 <template>
@@ -56,20 +81,14 @@ const profile = {
       </header>
 
       <main id="top">
-        <section class="section">
-          <h2>项目</h2>
-          <p class="section-sub">All projects, work in progress.</p>
-          <ul class="project-grid">
-            <li v-for="p in projects" :key="p.name" class="project-card">
-              <a :href="p.url" target="_blank" rel="noopener">
-                <span class="project-path">{{ p.path }}</span>
-                <span class="project-name">{{ p.name }}</span>
-                <span class="project-desc">{{ p.desc }}</span>
-                <span class="project-lang">{{ p.lang }}</span>
-              </a>
-            </li>
-          </ul>
-        </section>
+        <article v-if="post.meta" class="post">
+          <header class="post-header">
+            <h1>{{ post.meta.title }}</h1>
+            <p class="post-date">{{ post.meta.date }}</p>
+          </header>
+          <div class="post-content" v-html="content"></div>
+        </article>
+        <p v-else class="not-found">文章不存在</p>
       </main>
 
       <footer class="footer">
