@@ -3,7 +3,32 @@ import { locale } from '../i18n'
 
 const projectList = [
   {
+    name: 'weqi',
+    featured: true,
+    lang: 'Python+C++',
+    url: 'https://github.com/openwelabs/weqi',
+    path: {
+      zh_CN: 'Weqi-chess',
+      zh_TW: 'Weqi-chess',
+      en: 'Weqi-chess',
+      ja: 'Weqi-chess',
+      es: 'Weqi-chess',
+      uk: 'Weqi-chess',
+      ko: 'Weqi-chess',
+    },
+    desc: {
+      zh_CN: '一个 AI 国际象棋软件',
+      zh_TW: '一個 AI 國際象棋軟體',
+      en: 'An AI chess software',
+      ja: 'AI チェスソフトウェア',
+      es: 'Un software de ajedrez con IA',
+      uk: 'Програмне забезпечення для шахів зі штучним інтелектом',
+      ko: 'AI 체스 소프트웨어',
+    },
+  },
+  {
     name: 'staryaylove',
+    featured: true,
     lang: 'Python',
     url: 'https://github.com/kenaut/staryaylove',
     path: {
@@ -27,6 +52,7 @@ const projectList = [
   },
   {
     name: 'buliuming',
+    featured: false,
     lang: 'HTML',
     url: 'https://github.com/kenaut/buliuming',
     path: {
@@ -50,6 +76,7 @@ const projectList = [
   },
   {
     name: 'weibuai',
+    featured: true,
     lang: 'Python',
     url: 'https://github.com/kenaut/weibuai',
     path: {
@@ -73,6 +100,7 @@ const projectList = [
   },
   {
     name: 'yaywiki',
+    featured: false,
     lang: 'CSS',
     url: 'https://github.com/kenaut/yaywiki',
     path: {
@@ -96,6 +124,7 @@ const projectList = [
   },
   {
     name: 'archbolk',
+    featured: true,
     lang: 'Rust',
     url: 'https://github.com/kenaut/archbolk',
     path: {
@@ -119,6 +148,7 @@ const projectList = [
   },
   {
     name: 'qrdock',
+    featured: true,
     lang: 'Python',
     url: 'https://github.com/kenaut/qrdock',
     path: {
@@ -142,12 +172,16 @@ const projectList = [
   },
 ]
 
-export const projects = computed(() =>
-  projectList.map((p) => ({
-    name: p.name,
-    lang: p.lang,
-    url: p.url,
-    path: p.path[locale.value],
-    desc: p.desc[locale.value],
-  }))
+const toView = (p) => ({
+  name: p.name,
+  lang: p.lang,
+  url: p.url,
+  path: p.path[locale.value],
+  desc: p.desc[locale.value],
+})
+
+export const projects = computed(() => projectList.map(toView))
+
+export const featuredProjects = computed(() =>
+  projectList.filter((p) => p.featured).map(toView)
 )

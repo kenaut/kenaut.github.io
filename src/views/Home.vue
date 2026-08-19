@@ -1,5 +1,5 @@
 <script setup>
-import { projects } from '../data/projects'
+import { featuredProjects } from '../data/projects'
 import { activity } from '../data/activity'
 import { profile } from '../data/profile'
 import { t } from '../i18n'
@@ -83,7 +83,7 @@ const links = [
           <h2>{{ t('home.projectsTitle') }}</h2>
           <p class="section-sub">{{ t('home.projectsSub') }}</p>
           <ul class="project-grid">
-            <li v-for="p in projects" :key="p.name" class="project-card">
+            <li v-for="p in featuredProjects" :key="p.name" class="project-card">
               <a :href="p.url" target="_blank" rel="noopener">
                 <span class="project-path">{{ p.path }}</span>
                 <span class="project-name">{{ p.name }}</span>

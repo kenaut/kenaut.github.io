@@ -3,6 +3,18 @@ import { locale } from '../i18n'
 
 const activityList = [
   {
+    repo: 'openwelabs/weqi',
+    text: {
+      zh_CN: '创建 weqi：AI 国际象棋工具',
+      zh_TW: '建立 weqi：AI 國際象棋工具',
+      en: 'Created weqi: AI chess tool',
+      ja: 'weqi を作成：AI チェスツール',
+      es: 'Creó weqi: herramienta de ajedrez con IA',
+      uk: 'Створив weqi: інструмент для шахів зі штучним інтелектом',
+      ko: 'weqi 생성: AI 체스 도구',
+    },
+  },
+  {
     repo: 'kenaut/qrdock',
     text: {
       zh_CN: '创建 qrdock：轻量级系统操作启动器',
