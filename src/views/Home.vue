@@ -4,7 +4,6 @@ import { activity } from '../data/activity'
 import { profile } from '../data/profile'
 import { t } from '../i18n'
 import LanguageSwitcher from '../components/LanguageSwitcher.vue'
-import Countdown1024 from '../components/Countdown1024.vue'
 
 const links = [
   { name: 'GitHub', url: 'https://github.com/kenaut' },
@@ -51,7 +50,6 @@ const links = [
             <LanguageSwitcher />
           </nav>
         </div>
-        <Countdown1024 />
         <section class="hero">
           <h1>{{ profile.name }}</h1>
           <p class="tagline">{{ t('home.tagline') }}</p>
