@@ -17,5 +17,11 @@ export const posts = [
     title: '用C++Qt+Python开发了一个AI国际象棋软件',
     date: '2026-08-20 1:29',
     summary: '#开发日志',
+  },
+  {
+    slug: '04',
+    title: '变にまび-日语动词变形训练工具',
+    date: '2026-11-06 21:51',
+    summary: '#开发日志',
   }
 ]
